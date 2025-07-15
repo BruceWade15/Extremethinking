@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Creative Thinking Assessment - Extreme Thinking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: #f5f5f5;
+            color: #000;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: #f5f5f5;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+
+        .header {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+        }
+
+        .assessment-content {
+            padding: 40px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #000;
+        }
+
+        .intro h2 {
+            color: #1a237e;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+        }
+
+        .question-container {
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #ffffff;
+            border-radius: 15px;
+            border-left: 5px solid #1a237e;
+        }
+
+        .question-title {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin-bottom: 15px;
+            color: #000;
+        }
+
+        .slider-container {
+            margin: 20px 0;
+        }
+
+        .slider {
+            width: 100%;
+            height: 8px;
+            border-radius: 5px;
+            background: #ddd;
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #1a237e;
+            cursor: pointer;
+        }
+
+        .slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: #1a237e;
+            cursor: pointer;
+            border: none;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #000;
+        }
+
+        .slider-value {
+            text-align: center;
+            margin-top: 10px;
+            font-weight: bold;
+            color: #1a237e;
+            font-size: 1.1rem;
+        }
+
+        .submit-btn {
+            background: #1a237e;
+            color: white;
+            padding: 15px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: block;
+            margin: 30px auto;
+            transition: transform 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        .results {
+            display: none;
+            text-align: center;
+            padding: 30px;
+            background: #ffffff;
+            border-radius: 15px;
+            margin-top: 30px;
+        }
+
+        .result-badge {
+            display: inline-block;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: white;
+            background: #1a237e;
+        }
+
+        .result-description {
+            font-size: 1.1rem;
+            line-height: 1.6;
+            color: #000;
+            margin-bottom: 20px;
+        }
+
+        .cta-button {
+            background: #1a237e;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            transition: transform 0.3s ease;
+        }
+
+        .cta-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background: #e0e0e0;
+            border-radius: 3px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: #1a237e;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .score-display {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #1a237e;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Creative Thinking Assessment</h1>
+            <p>Discover Your Creative Thinking Quotient</p>
+        </div>
+
+        <div class="assessment-content">
+            <div class="intro">
+                <h2>Thinking Without Borders</h2>
+                <p>This fun assessment will help you discover your creative thinking appetite and identify opportunities to unlock your innovative potential.</p>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill"></div>
+                </div>
+                <p id="progressText">Question 1 of 10</p>
+            </div>
+
+            <form id="assessmentForm">
+                <div class="question-container">
+                    <div class="question-title">1. When faced with a complex problem, I prefer to:</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q1" oninput="updateSliderValue(this, 'value1')">
+                        <div class="slider-labels">
+                            <span>Follow established procedures</span>
+                            <span>Explore unconventional approaches</span>
+                        </div>
+                        <div class="slider-value" id="value1">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">2. How comfortable are you with ambiguity and uncertainty?</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q2" oninput="updateSliderValue(this, 'value2')">
+                        <div class="slider-labels">
+                            <span>Very uncomfortable</span>
+                            <span>Thrive in uncertainty</span>
+                        </div>
+                        <div class="slider-value" id="value2">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">3. When brainstorming, I tend to generate ideas that are:</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q3" oninput="updateSliderValue(this, 'value3')">
+                        <div class="slider-labels">
+                            <span>Safe and practical</span>
+                            <span>Bold and unconventional</span>
+                        </div>
+                        <div class="slider-value" id="value3">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">4. How often do you question the status quo in your work?</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q4" oninput="updateSliderValue(this, 'value4')">
+                        <div class="slider-labels">
+                            <span>Rarely</span>
+                            <span>Constantly</span>
+                        </div>
+                        <div class="slider-value" id="value4">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">5. When working on projects, I prefer to:</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q5" oninput="updateSliderValue(this, 'value5')">
+                        <div class="slider-labels">
+                            <span>Stick to the plan</span>
+                            <span>Adapt and improvise</span>
+                        </div>
+                        <div class="slider-value" id="value5">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">6. How do you typically respond to failure or setbacks?</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q6" oninput="updateSliderValue(this, 'value6')">
+                        <div class="slider-labels">
+                            <span>Avoid risks to prevent failure</span>
+                            <span>See failure as learning opportunities</span>
+                        </div>
+                        <div class="slider-value" id="value6">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">7. In team meetings, I am most likely to:</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q7" oninput="updateSliderValue(this, 'value7')">
+                        <div class="slider-labels">
+                            <span>Support consensus decisions</span>
+                            <span>Challenge ideas and propose alternatives</span>
+                        </div>
+                        <div class="slider-value" id="value7">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">8. How important is it for you to have all the facts before making a decision?</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q8" oninput="updateSliderValue(this, 'value8')">
+                        <div class="slider-labels">
+                            <span>Essential - need all facts</span>
+                            <span>Comfortable with intuition</span>
+                        </div>
+                        <div class="slider-value" id="value8">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">9. When learning something new, I prefer to:</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q9" oninput="updateSliderValue(this, 'value9')">
+                        <div class="slider-labels">
+                            <span>Follow structured courses</span>
+                            <span>Experiment and discover</span>
+                        </div>
+                        <div class="slider-value" id="value9">3</div>
+                    </div>
+                </div>
+
+                <div class="question-container">
+                    <div class="question-title">10. How do you view constraints and limitations?</div>
+                    <div class="slider-container">
+                        <input type="range" min="1" max="5" value="3" class="slider" id="q10" oninput="updateSliderValue(this, 'value10')">
+                        <div class="slider-labels">
+                            <span>Barriers to overcome</span>
+                            <span>Creative challenges to embrace</span>
+                        </div>
+                        <div class="slider-value" id="value10">3</div>
+                    </div>
+                </div>
+
+                <button type="button" class="submit-btn" onclick="calculateResults()">Get My Results</button>
+            </form>
+
+            <div class="results" id="resultsSection">
+                <div class="score-display" id="scoreDisplay"></div>
+                <div class="result-badge" id="resultBadge"></div>
+                <div class="result-description" id="resultDescription"></div>
+                <a href="#" class="cta-button" onclick="bookMeeting()">Book a Free Chat with Bruce Wade</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentQuestion = 1;
+        
+        function updateSliderValue(slider, valueId) {
+            document.getElementById(valueId).textContent = slider.value;
+            updateProgress();
+        }
+
+        function updateProgress() {
+            const progress = (currentQuestion / 10) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Question ${currentQuestion} of 10`;
+        }
+
+        function calculateResults() {
+            const answers = [];
+            for (let i = 1; i <= 10; i++) {
+                answers.push(parseInt(document.getElementById(`q${i}`).value));
+            }
+            
+            const totalScore = answers.reduce((sum, answer) => sum + answer, 0);
+            const percentage = (totalScore / 50) * 100;
+            
+            let category, description, badgeClass;
+            
+            if (totalScore >= 41) {
+                category = "Extreme Thinker";
+                badgeClass = "extreme";
+                description = "Wow! You're an Extreme Thinker who thrives on pushing boundaries and exploring uncharted territories. You see possibilities where others see obstacles and aren't afraid to challenge conventional wisdom. Your innovative mindset makes you a natural catalyst for breakthrough thinking and transformation.";
+            } else if (totalScore >= 33) {
+                category = "Great Thinker";
+                badgeClass = "great";
+                description = "Excellent! You're a Great Thinker with strong creative instincts and a healthy appetite for innovation. You balance creative exploration with practical considerations and aren't afraid to take calculated risks. You have the foundation to become an Extreme Thinker with the right frameworks and guidance.";
+            } else if (totalScore >= 25) {
+                category = "Moderate Thinker";
+                badgeClass = "moderate";
+                description = "Good news! You're a Moderate Thinker who shows potential for creative breakthrough. While you may sometimes prefer familiar approaches, you're open to new ideas and willing to explore different perspectives. With the right tools and mindset shifts, you can unlock much more of your creative potential.";
+            } else if (totalScore >= 17) {
+                category = "Average Thinker";
+                badgeClass = "average";
+                description = "You're an Average Thinker who tends to prefer structured, proven approaches. While this brings stability, it may limit your innovative potential. The good news is that creative thinking is a skill that can be developed! With proper frameworks and practice, you can dramatically expand your thinking capabilities.";
+            } else {
+                category = "Developing Thinker";
+                badgeClass = "poor";
+                description = "You're a Developing Thinker who may feel most comfortable with established methods and clear guidelines. This isn't a limitation – it's simply your starting point! Creative thinking can be learned and developed. With the right support and frameworks, you can unlock innovative thinking abilities you didn't know you had.";
+            }
+            
+            document.getElementById('scoreDisplay').textContent = `${totalScore}/50 (${Math.round(percentage)}%)`;
+            document.getElementById('resultBadge').textContent = category;
+            document.getElementById('resultBadge').className = `result-badge`;
+            document.getElementById('resultDescription').textContent = description;
+            
+            document.getElementById('assessmentForm').style.display = 'none';
+            document.getElementById('resultsSection').style.display = 'block';
+            
+            // Update progress to 100%
+            document.getElementById('progressFill').style.width = '100%';
+            document.getElementById('progressText').textContent = 'Assessment Complete!';
+        }
+
+        function bookMeeting() {
+            window.open('https://outlook.office365.com/book/BookwithBruce@em-solutions.co.za/', '_blank');
+        }
+
+        // Initialize progress
+        updateProgress();
+    </script>
+</body>
+</html>
