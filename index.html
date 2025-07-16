@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <title>Creative Thinking Assessment - Extreme Thinking</title>
+    <title>Extreme Thinking Assessment - Extreme Thinking</title>
     <style>
         * {
             margin: 0;
@@ -369,14 +369,14 @@
 <body>
     <div class="container">
         <div class="header">
-            <h1>Creative Thinking Assessment</h1>
-            <p>Discover Your Creative Thinking Quotient</p>
+            <h1>Extreme Thinking Assessment</h1>
+            <p>Discover Your Thinking Quotient</p>
         </div>
 
         <div class="assessment-content">
             <div class="intro">
                 <h2>Thinking Without Borders</h2>
-                <p>This fun assessment will help you discover your creative thinking appetite and identify opportunities to unlock your innovative potential.</p>
+                <p>This assessment will help you discover your creative thinking appetite and identify opportunities to unlock your innovative potential.</p>
                 <div class="progress-bar">
                     <div class="progress-fill" id="progressFill"></div>
                 </div>
@@ -536,8 +536,7 @@
                 answers.push(parseInt(document.getElementById(`q${i}`).value));
             }
             
-            const totalScore = answers.reduce((sum, answer) => sum + answer, 0);
-            const percentage = (totalScore / 50) * 100;
+         
             
             let category, description, badgeClass;
             
@@ -563,7 +562,6 @@
                 description = "You're a Developing Thinker who may feel most comfortable with established methods and clear guidelines. This isn't a limitation – it's simply your starting point! Creative thinking can be learned and developed. With the right support and frameworks, you can unlock innovative thinking abilities you didn't know you had.";
             }
             
-            document.getElementById('scoreDisplay').textContent = `${totalScore}/50 (${Math.round(percentage)}%)`;
             document.getElementById('resultBadge').textContent = category;
             document.getElementById('resultBadge').className = `result-badge`;
             document.getElementById('resultDescription').textContent = description;
