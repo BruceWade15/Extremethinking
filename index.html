@@ -536,7 +536,8 @@
                 answers.push(parseInt(document.getElementById(`q${i}`).value));
             }
             
-         
+          const totalScore = answers.reduce((sum, answer) => sum + answer, 0);
+            const percentage = (totalScore / 50) * 100;
             
             let category, description, badgeClass;
             
